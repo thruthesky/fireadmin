@@ -1,30 +1,123 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view />
+  <section class="layout">
+    <div class="header-wrapper">
+      <header
+        class="d-flex justify-content-between"
+        v-if="currentRoute != '/private-policy'"
+      >
+        <div class="d-flex">
+          <router-link class="logo" to="/">나리야</router-link>
+          <!-- <router-link to="/register" v-if="app.notLoggedIn">회원가입</router-link> -->
+          <router-link to="/profile" v-if="app.user">프로필</router-link>
+          <!-- <router-link to="/about">About</router-link> -->
+        </div>
+        <div class="d-flex">
+          <router-link to="/private-policy">개인정보보호</router-link>
+          <router-link to="/contacts">연락처</router-link>
+          <router-link to="/admin" v-if="app.isAdmin">Admin</router-link>
+          <router-link to="/login" v-if="!app.user">로그인</router-link>
+          <router-link to="/logout" v-if="app.user">로그아웃</router-link>
+        </div>
+      </header>
+    </div>
+    <main>
+      <router-view />
+    </main>
+  </section>
 </template>
+
+<script lang="ts">
+import store from "@/store/index";
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+
+import { Vue } from "vue-class-component";
+import router from "@/router";
+
+export default class RegisterForm extends Vue {
+  currentRoute = "";
+
+  created() {
+    router.beforeEach((to, from, next) => {
+      this.currentRoute = to.path;
+      next();
+    });
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  color: #323232;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+.layout {
+  min-height: 100vh;
+  .header-wrapper {
+    background-color: #1976d2;
+    a {
+      display: block;
+      color: #e0e0e0;
+      text-decoration: none;
+      padding: 1em;
+      &.logo {
+        padding-left: 0;
+      }
     }
   }
+  header,
+  .layout-content,
+  footer {
+    margin: 0 auto;
+    max-width: 1024px;
+  }
+}
+
+.avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+}
+.sm {
+  font-size: 12px;
+}
+.md {
+  font-size: 16px;
+}
+.bold {
+  font-weight: bold;
+}
+.grey {
+  color: grey;
+}
+.top {
+  top: 0;
+}
+.left {
+  left: 0;
+}
+
+.form-hint {
+  color: grey;
+}
+.form-title {
+  margin-top: 0.25em;
+}
+
+input {
+  border: 1px solid grey;
+  font-size: 1.5em;
+}
+.form-submit {
+  margin-top: 1em;
+  border: 0;
+  font-size: 0.9em;
+  padding: 0.5em 2em;
+  color: white;
+  background-color: blue;
 }
 </style>

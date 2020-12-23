@@ -15,6 +15,37 @@ const routes: Array<RouteRecordRaw> = [
     name: "About",
     component: () => import("../views/About.vue")
   },
+
+  {
+    path: "/register",
+    name: "Register",
+    component: () => import("../views/Register.vue")
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: () => import("../views/Profile.vue")
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: () => import("../views/Login.vue")
+  },
+  {
+    path: "/logout",
+    name: "Logout",
+    component: () => import("../views/Logout.vue")
+  },
+  {
+    path: "/private-policy",
+    name: "PrivatePolicy",
+    component: () => import("../views/PrivatePolicy.vue")
+  },
+  {
+    path: "/contacts",
+    name: "Contacts",
+    component: () => import("../views/Contacts.vue")
+  },
   {
     path: "/admin",
     name: "Admin",
