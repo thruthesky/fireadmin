@@ -9,12 +9,13 @@ import { firebaseConfig } from "../app.config";
 
 firebase.initializeApp(firebaseConfig);
 import { AppService } from "@/fire-admin-vue/services/app.service";
-
+/// Create AppService instance only one time.
+const appService = new AppService();
 createApp(App)
   .mixin({
     data() {
       return {
-        app: new AppService()
+        app: appService /// Don't instantiate AppService() here.
       };
     }
   })
