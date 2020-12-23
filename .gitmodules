@@ -1,0 +1,3 @@
+[submodule "src/fire-admin-vue"]
+	path = src/fire-admin-vue
+	url = https://github.com/thruthesky/fire-admin-vue
